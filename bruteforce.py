@@ -2,6 +2,16 @@
 import subprocess
 import pickle
 import argparse
+import itertools
+
+
+
+def gen_guess_alpha_numeric(size=1):
+    CHARS = "abcdefghijklmnopqrstuvwxyz0123456789"
+    yield ""
+    for i in range(1, size + 1):
+        combinations = itertools.product(CHARS, repeat=i)
+        yield from ("".join(comb) for comb in combinations)
 
 
 def gen_guess_from_file(guesses_path):
@@ -98,5 +108,5 @@ if __name__ == "__main__":
         args.volume_path,
         args.mount_path,
         args.status_file_path,
-        gen_guess_from_file("eff_large.wordlist"),
+        gen_guess_alpha_numeric(5),
     )
